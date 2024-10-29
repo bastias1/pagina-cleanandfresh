@@ -1,37 +1,61 @@
-.c-item {
-    height: 500px;
+body {
+	background-color: #e3f2fd;
+	color: #333333;
 }
 
 header {
-    background-color: rgb(47, 95, 255);
+	background-color: #1a73e8;
+}
+
+.nav-pills .nav-link.agendar {
+	background-color: #1565c0;
+	color: #333333;
+}
+
+.nav-pills .nav-link {
+	background-color: #e3f2fd;
+	color: #333333;
+}
+
+.nav-pills .nav-link.active {
+	background-color: #e3f2fd;
+	color: #333333;
+}
+
+.nav-pills .nav-link:hover {
+	background-color: #0056b3;
+	color: #333333;
+}
+
+.c-item {
+	height: 500px;
 }
 
 .form-signin {
-    max-width: 330px;
-    padding: 1rem;
+	max-width: 330px;
+	padding: 1rem;
 }
 
 .form-signin .form-floating:focus-within {
-    z-index: 2;
+	z-index: 2;
 }
 
 .form-signin input[type="email"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }
 
 .form-signin input[type="password"] {
-    margin-bottom: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
 }
 
-
 .bi {
-    display: inline-block;
-    width: 1rem;
-    height: 1rem;
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
 }
 
 /*
@@ -39,28 +63,28 @@ header {
  */
 
 @media (min-width: 768px) {
-    .sidebar .offcanvas-lg {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 48px;
-    }
+	.sidebar .offcanvas-lg {
+		position: -webkit-sticky;
+		position: sticky;
+		top: 48px;
+	}
 
-    .navbar-search {
-        display: block;
-    }
+	.navbar-search {
+		display: block;
+	}
 }
 
 .sidebar .nav-link {
-    font-size: .875rem;
-    font-weight: 500;
+	font-size: 0.875rem;
+	font-weight: 500;
 }
 
 .sidebar .nav-link.active {
-    color: #2470dc;
+	color: #2470dc;
 }
 
 .sidebar-heading {
-    font-size: .75rem;
+	font-size: 0.75rem;
 }
 
 /*
@@ -68,12 +92,12 @@ header {
  */
 
 .navbar-brand {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    background-color: rgba(0, 0, 0, .25);
-    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+	padding-top: 0.75rem;
+	padding-bottom: 0.75rem;
+	background-color: rgba(0, 0, 0, 0.25);
+	box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.25);
 }
 
 .navbar .form-control {
-    padding: .75rem 1rem;
+	padding: 0.75rem 1rem;
 }

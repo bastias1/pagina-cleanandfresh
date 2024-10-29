@@ -1,142 +1,114 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="/static/styles/style.css" />
-  </head>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+			crossorigin="anonymous" />
+		<link rel="stylesheet" href="/static/styles/style.css" />
+	</head>
 
-  <body>
-    <header>
-      <div class="container d-flex flex-wrap justify-content-center py-3 mb-4">
-        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-          <img src="static/images/cleanandfreshnobg.png" alt="CleanAndFresh" style="width: 50px"/>
-        </a>
+	<body>
+		<header>
+			<div class="container d-flex flex-wrap justify-content-center py-3 mb-4">
+				<a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+					<img src="static/images/cleanandfreshnobg.png" alt="CleanAndFresh" style="width: 50px" />
+				</a>
 
-        <ul class="nav nav-pills">
-          <li class="nav-item">
-            <a href="/" class="nav-link active" aria-current="page">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a href="/servicios" class="nav-link">Servicios</a>
-          </li>
-          <li class="nav-item">
-            <a href="/agendar" class="nav-link">Agendar</a>
-          </li>
-        </ul>
-      </div>
-    </header>
+				<ul class="nav nav-pills">
+					<li class="nav-item mx-1">
+						<a href="/" class="nav-link active" aria-current="page">Inicio</a>
+					</li>
+					<li class="nav-item mx-1">
+						<a href="/servicios" class="nav-link">Servicios</a>
+					</li>
+					<li class="nav-item mx-1">
+						<a href="/agendar" class="nav-link agendar">Agendar</a>
+					</li>
+				</ul>
+			</div>
+		</header>
 
-    <div class="container col-xxl-8">
-      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-        <div class="col-10 col-sm-8 col-lg-6">
-          <img src="/static/images/carrousel1.jpg" class="d-block img-fluid w-100 rounded-3" loading="lazy"/>
-        </div>
-        <div class="col-lg-6">
-          <h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">
-            Lavado y Detallado de Autos
-          </h1>
-          <p class="lead">
-            Quickly design and customize responsive mobile-first sites with
-            Bootstrap, the world’s most popular front-end open source toolkit,
-            featuring Sass variables and mixins, responsive grid system,
-            extensive prebuilt components, and powerful JavaScript plugins.
-          </p>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-            <button href="/agendar" type="button" class="btn btn-primary btn-lg px-4 me-md-2">
-              Agendar
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-              Servicios
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+		<div class="container col-xxl-8">
+			<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+				<div class="col-10 col-sm-8 col-lg-6">
+					<img src="/static/images/carrousel1.jpg" class="d-block img-fluid w-100 rounded-3" loading="lazy" />
+				</div>
+				<div class="col-lg-6">
+					<h1 class="display-5 fw-bold text-body-emphasis lh-1 mb-3">Lavado y Detallado de Autos</h1>
+					<p class="lead">
+						Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables
+						and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.
+					</p>
+					<div class="d-grid gap-2 d-md-flex justify-content-md-start">
+						<button href="/agendar" type="button" class="btn btn-primary btn-lg px-4 me-md-2">Agendar</button>
+						<button type="button" class="btn btn-outline-secondary btn-lg px-4">Servicios</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="container px-4 py-5" id="featured-3">
-      <h2 class="pb-2 border-bottom">Servicios</h2>
-      <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-        <div class="feature col">
-          <div
-            class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3"
-          ></div>
-          <h3 class="fs-2 text-body-emphasis">Quienes Somos?</h3>
-          <p>
-            Empresa Valdiviana, con 7 años de antigüedad en servicios dedicados
-            a la limpieza y estética automotriz.
-          </p>
-        </div>
-        <div class="feature col"></div>
-        <div class="feature col">
-          <div
-            class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3"
-          >
-            <svg class="bi" width="1em" height="1em">
-              <use xlink:href="#people-circle"></use>
-            </svg>
-          </div>
-          <h3 class="fs-2 text-body-emphasis">Que Ofrecemos?</h3>
-          <p>
-            Podemos realizar desde servicios básicos como limpiezas hasta
-            servicio avanzados como limpieza de tapicería, motores y así también
-            pulidos y protección de pinturas,vidrios, telas y cueros.
-          </p>
-          <a href="#" class="icon-link">
-            Nuestros Servicios
-            <svg class="bi"><use xlink:href="#chevron-right"></use></svg>
-          </a>
-        </div>
-      </div>
-    </div>
+		<div class="container px-4 py-5" id="featured-3">
+			<h2 class="pb-2 border-bottom">Servicios</h2>
+			<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+				<div class="feature col">
+					<div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3"></div>
+					<h3 class="fs-2 text-body-emphasis">Quienes Somos?</h3>
+					<p>Empresa Valdiviana, con 7 años de antigüedad en servicios dedicados a la limpieza y estética automotriz.</p>
+				</div>
+				<div class="feature col"></div>
+				<div class="feature col">
+					<div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+						<svg class="bi" width="1em" height="1em">
+							<use xlink:href="#people-circle"></use>
+						</svg>
+					</div>
+					<h3 class="fs-2 text-body-emphasis">Que Ofrecemos?</h3>
+					<p>
+						Podemos realizar desde servicios básicos como limpiezas hasta servicio avanzados como limpieza de tapicería, motores y así también pulidos y protección de
+						pinturas,vidrios, telas y cueros.
+					</p>
+					<a href="#" class="icon-link">
+						Nuestros Servicios
+						<svg class="bi"><use xlink:href="#chevron-right"></use></svg>
+					</a>
+				</div>
+			</div>
+		</div>
 
-    <div class="container">
-      <footer class="row py-5 my-5 border-top">
-        <div class="col">
-          <a
-            href="/"
-            class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none"
-          >
-            <img
-              src="/static/images/cleanandfreshnobg.png"
-              style="width: 50px"
-            />
-          </a>
-          <p class="text-body-secondary">© 2024</p>
-        </div>
+		<div class="container">
+			<footer class="row py-5 my-5 border-top">
+				<div class="col">
+					<a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+						<img src="/static/images/cleanandfreshnobg.png" style="width: 50px" />
+					</a>
+					<p class="text-body-secondary">© 2024</p>
+				</div>
 
-        <div class="col"></div>
-        <div class="col">
-          <h5></h5>
-          <ul class="nav flex-column">
-            <li class="nav-item mb-2">
-              <a href="/" class="nav-link p-0 text-body-secondary">Inicio</a>
-            </li>
-            <li class="nav-item mb-2">
-              <a href="/servicios" class="nav-link p-0 text-body-secondary">
-                Servicios
-              </a>
-            </li>
-            <li class="nav-item mb-2">
-              <a href="/agendar" class="nav-link p-0 text-body-secondary">
-                Agendar
-              </a>
-            </li>
-          </ul>
-        </div>
-      </footer>
-    </div>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+				<div class="col"></div>
+				<div class="col">
+					<h5></h5>
+					<ul class="nav flex-column">
+						<li class="nav-item mb-2">
+							<a href="/" class="nav-link p-0 text-body-secondary">Inicio</a>
+						</li>
+						<li class="nav-item mb-2">
+							<a href="/servicios" class="nav-link p-0 text-body-secondary">Servicios</a>
+						</li>
+						<li class="nav-item mb-2">
+							<a href="/agendar" class="nav-link p-0 text-body-secondary">Agendar</a>
+						</li>
+					</ul>
+				</div>
+			</footer>
+		</div>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"></script>
+	</body>
 </html>

@@ -4,13 +4,13 @@ from django.db import models
 class Usuario(models.Model):
     nombre=models.CharField(max_length=50)
     email= models.EmailField(max_length=50)
-    contraseña = models.CharField()
+    contraseña = models.CharField(max_length=100)
     rol = models.CharField(max_length=50)
 
 class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
     duracion = models.CharField(max_length=50)
-    precio = models.IntegerField(max_length=50)
+    precio = models.IntegerField()
     descripcion = models.TextField()
 
 class Cita(models.Model):
@@ -26,6 +26,6 @@ class Cliente(models.Model):
 
 class Vehiculo(models.Model):
     patente =models.CharField(max_length=50)
-    año = models.IntegerField(max_length=50)
+    año = models.IntegerField()
     marca =models.CharField(max_length=50)
     modelo =models.CharField(max_length=50)
