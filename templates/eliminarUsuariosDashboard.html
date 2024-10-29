@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+			crossorigin="anonymous" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"></script>
+		{% load static %}
+		<title>Administrador - Ver Horas</title>
+		<link rel="stylesheet" href="/static/styles/style.css" />
+	</head>
+
+	<body>
+		<header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+			<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">
+				<img src="{% static 'images/cleanandfreshnobg.png' %}" alt="CleanAndFresh" style="width: 50px" />
+				Clean And Fresh
+			</a>
+
+			<div id="navbarSearch" class="navbar-search w-100 collapse">
+				<input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search" />
+			</div>
+		</header>
+
+		<div class="container-fluid">
+			<div class="row">
+				<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+					<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+						<div class="offcanvas-header">
+							<h5 class="offcanvas-title" id="sidebarMenuLabel">Company name</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+						</div>
+						<div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+							<ul class="nav flex-column">
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/gestion-horas-agendadas">
+										<svg class="bi"><use xlink:href="#house-fill"></use></svg>
+										Gestion de Horas Agendadas
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="/creacion-usuarios">
+										<svg class="bi"><use xlink:href="#file-earmark"></use></svg>
+										Creacion de Usuarios
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="/eliminar-usuarios">
+										<svg class="bi"><use xlink:href="#cart"></use></svg>
+										Eliminacion de Usuarios
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+										<svg class="bi"><use xlink:href="#people"></use></svg>
+										Gestion de Servicios
+									</a>
+								</li>
+							</ul>
+							<hr class="my-3" />
+
+							<ul class="nav flex-column mb-auto">
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+										<svg class="bi">
+											<use xlink:href="#gear-wide-connected"></use>
+										</svg>
+										Settings
+									</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link d-flex align-items-center gap-2" href="#">
+										<svg class="bi"><use xlink:href="#door-closed"></use></svg>
+										Sign out
+									</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+					<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+						<h1 class="h2">Dashboard</h1>
+						<div class="btn-toolbar mb-2 mb-md-0">
+							<div class="btn-group me-2">
+								<button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+								<button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+							</div>
+							<button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
+								<svg class="bi"><use xlink:href="#calendar3"></use></svg>
+								This week
+							</button>
+						</div>
+					</div>
+					<!-- EDITAR AQUI-->
+					<h2>Lista de Empleados</h2>
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Apellido</th>
+								<th>Telefono</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody class="table-group-divider">
+							<!-- Fila 1 con un collapse para mostrar más detalles -->
+							<tr data-bs-toggle="collapse" data-bs-target="#detalles1" aria-expanded="false" aria-controls="detalles1">
+								<td>Carlos</td>
+								<td>Perez</td>
+								<td>+56 9 9999 9999</td>
+								<td>
+									<button class="btn btn-warning btn-sm me-2">Modificar</button>
+									<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">Eliminar</button>
+								</td>
+							</tr>
+							<!-- Fila desplegable con más detalles -->
+							<tr class="collapse" id="detalles1">
+								<td colspan="4">
+									<div class="p-2">
+										<strong>RUT:</strong>
+										11.111.111-1
+										<br />
+										<strong>Correo:</strong>
+										carlos.perez@example.com
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<!-- Modal de confirmación para eliminar -->
+					<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header bg-danger text-white">
+									<h5 class="modal-title" id="modalEliminarLabel">Confirmar eliminación</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">¿Estás seguro que deseas eliminar a este empleado? Esta acción no se puede deshacer.</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+									<button type="button" class="btn btn-danger">Eliminar</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--FIN EDITAR-->
+				</main>
+			</div>
+		</div>
+	</body>
+</html>
