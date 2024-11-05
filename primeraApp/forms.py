@@ -1,7 +1,12 @@
 from django import forms
 from django.core import validators
+from primeraApp.models import *
 
-class RegistroEmpleados(forms.Form):
+class RegistroEmpleados(forms.ModelForm):
+    
+    class Meta:
+        model = Empleado
+        fields = []
 
     nombre = forms.CharField(validators=[
         validators.MinLengthValidator(4),
