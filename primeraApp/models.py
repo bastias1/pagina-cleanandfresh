@@ -1,15 +1,18 @@
 from django.db import models
 
-# Create your models here.
+
 class Empleado(models.Model):
     nombre=models.CharField(max_length=50)
     email= models.EmailField(max_length=50)
     contraseña = models.CharField(max_length=100)
+    telefono = models.IntegerField()
+
+    def __srt__(self):
+        return self.nombre
 
 class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
     duracion = models.CharField(max_length=50)
-    precio = models.IntegerField()
     descripcion = models.TextField()
 
 class Vehiculo(models.Model):
@@ -25,8 +28,7 @@ class Cliente(models.Model):
 
 class Cita(models.Model):
     fecha = models.DateField()
-    hora = models.TimeField()
-    tipoServicio = models.CharField(max_length=50)
     estado = models.CharField(max_length=50)
-    cliente = models.OneToOneField(Cliente)
-    vehiculo = models.OneToOneField(Vehiculo)
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
+    vehiculo = models.OneToOneField(Vehiculo, on_delete=models.CASCADE)
+    servicio = models.ManyToManyField(Servicio)

@@ -6,20 +6,16 @@ class RegistroEmpleados(forms.ModelForm):
     
     class Meta:
         model = Empleado
-        fields = []
+        fields = ['nombre','email','contraseña','telefono']
 
-    nombre = forms.CharField(validators=[
-        validators.MinLengthValidator(4),
-        validators.MaxLengthValidator(20)
-    ])
-    apellido = forms.CharField(validators=[
-        validators.MinLengthValidator(4),
-        validators.MaxLengthValidator(20)
-        ])
-    email =  forms.CharField(widget=forms.EmailInput) 
-    fono =  forms.CharField(required=False)
+class IngresoServicios(forms.ModelForm):
+    class Meta:
+        model = Servicio
+        fields = ['nombreServicio','duracion','descripcion']
 
-
-    nombre.widget.attrs['class'] = 'form-control'
+class IngresoCita(forms.ModelForm):
+    class Meta:
+        model = Cita
+        fields = ['fecha','estado','cliente','vehiculo','servicio']
 
 
