@@ -103,6 +103,7 @@
 					<!-- EDITAR AQUI-->
 					<div class="card-body p-5">
 						<form action="" method="post">
+							{% csrf_token %}
 							<div class="row mb-3">
 								<div class="col-md-4">
 									<label for="nombre" class="form-label">Nombre</label>
@@ -129,8 +130,6 @@
 								<label for="password" class="form-label">Contrasena</label>
 								<input type="text" class="form-control" id="password" name="password" placeholder="Asigne una contrasena al empleado" />
 							</div>
-
-							{% csrf_token %}
 
 							<div class="mt-4">
 								<input class="btn btn-dark rounded-pill px-4 py-2" type="submit" value="Agregar Empleado" />

@@ -30,6 +30,16 @@ def dashboardCreacionUsuarios(request):
     data = {'form' : form}
     return render(request, 'creacionUsuariosDashboard.html', data)
 
+def registro_empleados_view(request):
+    form = forms.RegistroEmpleados()
+    if request.method=='POST':
+        form = forms.RegistroEmpleados(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = forms.RegistroEmpleados()
+    
+    return render(request,'creacionUsuariosDashboard.html',{'form':form})
 
 def dashboardEliminarUsuarios(request):
     return render(request, 'eliminarUsuariosDashboard.html')
