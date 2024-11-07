@@ -3,10 +3,18 @@ from django.core import validators
 from primeraApp.models import *
 
 class RegistroEmpleados(forms.ModelForm):
-    
     class Meta:
-        model = Empleado
-        fields = ['nombre','email','contraseña','telefono']
+        model = Empleado 
+        fields = ('nombre', 'apellido', 'rut', 'correo', 'telefono', 'password') 
+
+        widgets = {
+            'nombre' : forms.TextInput(attrs={'class':'form-control'}),
+            'apellido' : forms.TextInput(attrs={'class':'form-control'}),
+            'rut' : forms.TextInput(attrs={'class':'form-control'}),
+            'correo' : forms.EmailInput(attrs={'class':'form-control'}),
+            'telefono' : forms.NumberInput(attrs={'class':'form-control'}),
+            'password' : forms.TextInput(attrs={'class':'form-control'}),
+        }
 
 class IngresoServicios(forms.ModelForm):
     class Meta:

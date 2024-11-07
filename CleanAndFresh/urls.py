@@ -24,8 +24,9 @@ urlpatterns = [
     path('servicios/',views.servicios),
     path('login/',views.login),
     path('agendar/',views.agendar),
+    path('adminDashboard/', views.adminDashboard),
     path('gestion-horas-agendadas/',views.dashboardHorasAgendadas),
-    path('creacion-usuarios/',views.dashboardCreacionUsuarios),
+    path('creacion-usuarios/',views.registro_empleados_view),
     path ('eliminar-usuarios/', views.dashboardEliminarUsuarios),
     path('test/',views.test),
 ]
