@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from . import forms
+from .models import *
 # Create your views here.
 
 #Paginas que ve el Cliente
@@ -38,3 +39,11 @@ def registro_empleados_view(request):
 
 def dashboardEliminarUsuarios(request):
     return render(request, 'admin/eliminarUsuariosDashboard.html')
+
+
+def gestionServicios(request):
+    return render(request, 'admin/serviciosDashboard.html')
+
+#def modificarServicio(request):    
+
+    
