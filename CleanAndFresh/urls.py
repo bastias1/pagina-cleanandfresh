@@ -28,5 +28,4 @@ urlpatterns = [
     path('gestion-horas-agendadas/',views.dashboardHorasAgendadas),
     path('creacion-usuarios/',views.registro_empleados_view),
     path ('eliminar-usuarios/', views.dashboardEliminarUsuarios),
-    path('test/',views.test),
 ]
