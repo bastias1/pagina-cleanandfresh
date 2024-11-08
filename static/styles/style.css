@@ -6,35 +6,40 @@ hay que usar esta paleta de colores
 #F2F2F2
 #0D0D0D
 */
+
 body {
-	background-color: #e3f2fd;
-	color: #333333;
+	background-color: #F2F2F2; 
+	color: #0D0D0D; 
 }
 
 header {
-	background-color: #1a73e8;
-}
-
-.nav-pills .nav-link.agendar {
-	background-color: #1565c0;
-	color: #333333;
+	background-color: #2B558C; 
 }
 
 .nav-pills .nav-link {
-	background-color: #e3f2fd;
-	color: #333333;
-}
-
-.nav-pills .nav-link.active {
-	background-color: #e3f2fd;
-	color: #333333;
+	background-color: #3279A6; 
+	color: #F2F2F2; 
 }
 
 .nav-pills .nav-link:hover {
-	background-color: #0056b3;
-	color: #333333;
+	background-color: #2B558C; /* Color al pasar el mouse */
+	color: #F2F2F2;
 }
 
+/* Estilo específico para el botón "Agendar" */
+.nav-pills .nav-link.agendar {
+	background-color: #1ea017; /* Color destacado para "Agendar" */
+	color: #0D0D0D; 
+	font-weight: bold;
+	border: 1px solid #2B558C; 
+}
+
+.nav-pills .nav-link.agendar:hover {
+	background-color: #0c4609;
+	color: #F2F2F2;
+}
+
+/* Estilos generales de los componentes */
 .c-item {
 	height: 500px;
 }
@@ -66,10 +71,7 @@ header {
 	height: 1rem;
 }
 
-/*
- * Sidebar
- */
-
+/* Sidebar */
 @media (min-width: 768px) {
 	.sidebar .offcanvas-lg {
 		position: -webkit-sticky;
@@ -88,17 +90,14 @@ header {
 }
 
 .sidebar .nav-link.active {
-	color: #2470dc;
+	color: #2B558C;
 }
 
 .sidebar-heading {
 	font-size: 0.75rem;
 }
 
-/*
- * Navbar
- */
-
+/* Navbar */
 .navbar-brand {
 	padding-top: 0.75rem;
 	padding-bottom: 0.75rem;
@@ -109,3 +108,4 @@ header {
 .navbar .form-control {
 	padding: 0.75rem 1rem;
 }
+
