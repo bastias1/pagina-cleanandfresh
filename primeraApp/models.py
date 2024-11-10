@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Empleado(models.Model):
     rut = models.CharField(max_length=10)
     nombre=models.CharField(max_length=50)
@@ -16,6 +15,7 @@ class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
     duracion = models.CharField(max_length=50)
     descripcion = models.TextField()
+    imagen = models.ImageField()
 
 class Vehiculo(models.Model):
     patente =models.CharField(max_length=50)
