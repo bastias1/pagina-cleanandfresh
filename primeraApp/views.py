@@ -48,13 +48,12 @@ def dashboardHorasAgendadas(request):
 
 def gestionarEmpleados(request):
     empleados = Empleado.objects.all()
-    selected_empleado = None
-
-    if request.method == 'POST':
-        form = forms.
-
-    return render(request, 'admin/gestionarUsuarios.html')
-
+    
+    data = {
+        'empleados':empleados
+    }
+    return render(request, 'admin/gestionarUsuarios.html',data)
+    
 def registro_empleados_view(request):
     form = forms.RegistroEmpleados()
     if request.method=='POST':

@@ -1,21 +1,20 @@
 {% extends 'admin/dashboard.html' %} {% load static %} {% block title %} Eliminacion de Empleados {% endblock %} {% block content %}
 <!-- EDITAR AQUI-->
 <h2>Lista de Empleados</h2>
+{% if empleados %}
 <table class="table table-hover">
 	<thead>
 		<tr>
 			<th>Nombre</th>
-			<th>Apellido</th>
 			<th>Telefono</th>
-			<th>Acciones</th>
 		</tr>
 	</thead>
 	<tbody class="table-group-divider">
+		{% for x in empleados %}
 		<!-- Fila 1 con un collapse para mostrar más detalles -->
 		<tr data-bs-toggle="collapse" data-bs-target="#detalles1" aria-expanded="false" aria-controls="detalles1">
-			<td>Carlos</td>
-			<td>Perez</td>
-			<td>+56 9 9999 9999</td>
+			<td>{{ x.nombre}} {{ x.apellido }}</td>
+			<td>{{ x.telefono }}</td>
 			<td>
 				<button class="btn btn-warning btn-sm me-2">Modificar</button>
 				<button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalEliminar">Eliminar</button>
@@ -33,6 +32,7 @@
 				</div>
 			</td>
 		</tr>
+		{% endfor %}
 	</tbody>
 </table>
 
@@ -53,4 +53,6 @@
 	</div>
 </div>
 <!--FIN EDITAR-->
-{% endblock %}
+{% else %}
+<h2>No Existen Empleados</h2>
+{% endif %} {% endblock %}
