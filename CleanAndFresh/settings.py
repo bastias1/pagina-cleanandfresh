@@ -137,3 +137,8 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Login URL
+LOGIN_URL = '/login/'  # Ruta para redirigir a la página de login
+LOGIN_REDIRECT_URL = '/adminDashboard/'  # Ruta después de un login exitoso
