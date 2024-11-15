@@ -12,7 +12,7 @@
 	<tbody class="table-group-divider">
 		{% for empleado in empleados %}
 		<!-- Fila 1 con un collapse para mostrar más detalles -->
-		<tr>
+		<tr data-bs-toggle="collapse" data-bs-target="#{{ empleado.id }}" aria-expanded="false" aria-controls="#{{empelado.id}}">
 			<td>{{ empleado.nombre}} {{ empleado.apellido }}</td>
 			<td>{{ empleado.telefono }}</td>
 			<td>
@@ -20,11 +20,27 @@
 				<a href="/eliminar-empleado/{{empleado.id}}" class="btn btn-danger btn-sm">Eliminar</button>
 			</td>
 		</tr>
-
+		<!--Colapsable-->
+		<tr class="collapse" id="{{ empleado.id }}">
+			<td colspan="4">
+				<div class="p-2">
+					<strong>RUT:</strong>
+					{{ empleado.rut }}
+					<br />
+					<strong>Nombre:</strong>
+					{{ empleado.nombre }} {{ empleado.apellido }}
+					<br />
+					<strong>Telefono:</strong>
+					{{ empleado.telefono }}
+					<br />
+					<strong>Correo:</strong>
+					{{ empleado.correo }}
+				</div>
+			</td>
+		</tr>
 		{% endfor %}
 	</tbody>
 </table>
-
 {% else %}
 <h2>No Existen Empleados</h2>
 {% endif %} {% endblock %}
