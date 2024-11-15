@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from . import forms
 from .models import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #Paginas que ve el Cliente
@@ -38,13 +39,15 @@ def agendar(request):
 
 #Paginas que ven los Empleados/Admin
 def login(request):
-    return render(request,'admin/login.html')
+    return render(request, 'admin/login.html')
 
+@login_required
 def adminDashboard(request):
-    return render(request,'admin/dashboard.html')
+    return render(request, 'admin/dashboard.html')
 
+@login_required
 def dashboardHorasAgendadas(request):
-    return render(request,'admin/horasAgendadasDashboard.html')
+    return render(request, 'admin/horasAgendadasDashboard.html')
 
 #GESTION EMPLEADO 
 def gestionarEmpleados(request):
