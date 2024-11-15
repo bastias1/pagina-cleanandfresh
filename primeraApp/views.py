@@ -46,6 +46,15 @@ def adminDashboard(request):
 def dashboardHorasAgendadas(request):
     return render(request,'admin/horasAgendadasDashboard.html')
 
+def gestionarEmpleados(request):
+    empleados = Empleado.objects.all()
+    selected_empleado = None
+
+    if request.method == 'POST':
+        form = forms.
+
+    return render(request, 'admin/gestionarUsuarios.html')
+
 def registro_empleados_view(request):
     form = forms.RegistroEmpleados()
     if request.method=='POST':
@@ -58,10 +67,8 @@ def registro_empleados_view(request):
         print("Datos NO insertados")
         form = forms.RegistroEmpleados()
     
-    return render(request,'admin/creacionUsuariosDashboard.html',{'form':form})
+    return render(request,'admin/crearUsuarios.html',{'form':form})
 
-def dashboardEliminarUsuarios(request):
-    return render(request, 'admin/eliminarUsuariosDashboard.html')
 
 
 def gestionServicios(request):
