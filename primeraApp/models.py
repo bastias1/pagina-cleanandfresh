@@ -13,6 +13,7 @@ class Empleado(models.Model):
 
 class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
+    imagen = models.ImageField(upload_to='servicios/', null=True, blank=True)
     descripcion = models.TextField()
 
     def __str__(self):

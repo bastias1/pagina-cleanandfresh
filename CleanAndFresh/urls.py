@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from primeraApp import views
+#estas 2 lineas de abajo son las librerias para agregar imagenes
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,5 +37,8 @@ urlpatterns = [
     path ('gestion-empleados/', views.gestionarEmpleados),
     path('eliminar-empleado/<int:id>',views.eliminarEmpleado),
     path('modificar-empleado/<int:id>',views.eliminarEmpleado),
-    path('gestion-servicios/',views.gestionServicios),
-]
+    path('gestion-servicios/',views.gestionServicios,name='gestionServicios'),
+    path('agregar-servicios/',views.agregarServicio),
+
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+#lo que esta despues del ']' hace la magia con las imagenes

@@ -76,9 +76,24 @@ def registro_empleados_view(request):
     return render(request,'admin/crearUsuarios.html',{'form':form})
 
 
-
 def gestionServicios(request):
-    return render(request, 'admin/serviciosDashboard.html')
+    servicios=Servicio.objects.all()
+    return render(request, 'admin/serviciosDashboard.html',{'servicios':servicios})
+
+def agregarServicio(request):
+    if request.method == 'POST':
+        form = forms.IngresoServicios(request.POST, request.FILES)
+        if form.is_valid():
+            print("Datos insertados a la base de datos")
+            form.save()
+            return redirect('gestionServicios')  # Redirige a la lista de servicios después de agregar
+        else:
+            print("Datos NO insertados")
+    else:
+        form = forms.IngresoServicios()  # Inicializa el formulario en caso de una solicitud GET
+
+    return render(request, 'admin/agregarServicios.html', {'form': form})
+
 
 #def modificarServicio(request):    
 

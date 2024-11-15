@@ -56,3 +56,13 @@ class CitaForm(forms.ModelForm):
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'servicio': forms.CheckboxInput(),
         }
+
+class IngresoServicios(forms.ModelForm):
+    class Meta:
+        model = Servicio
+        fields = ['nombreServicio','descripcion','imagen']
+        widget = {
+            'nombreServicio': forms.TextInput(attrs={'class' : 'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class':'form-control'}),
+            'imagen':forms.ClearableFileInput(attrs={'class':'form-control'}),
+        }
