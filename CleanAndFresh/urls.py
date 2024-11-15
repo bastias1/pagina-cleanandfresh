@@ -17,16 +17,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from primeraApp import views
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index),
     path('servicios/',views.servicios),
-    path('login/',views.login),
+    path('login/', auth_views.LoginView.as_view(template_name='admin/login.html'), name='login'),
     path('agendar/',views.agendar),
-    path('adminDashboard/', views.adminDashboard),
-    path('gestion-horas-agendadas/',views.dashboardHorasAgendadas),
-    path('creacion-usuarios/',views.registro_empleados_view),
-    path ('eliminar-usuarios/', views.dashboardEliminarUsuarios),
-    path('gestion-servicios/',views.gestionServicios)
+    path('adminDashboard/', login_required(views.adminDashboard)),
+    path('gestion-horas-agendadas/', login_required(views.dashboardHorasAgendadas)),
+    path('creacion-usuarios/', login_required(views.registro_empleados_view)),
+    path('eliminar-usuarios/', login_required(views.dashboardEliminarUsuarios)),
+    path('gestion-servicios/', login_required(views.gestionServicios)),
 ]
