@@ -20,13 +20,19 @@ from primeraApp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #Inicio vista Cliente
     path('',views.index),
-    path('servicios/',views.servicios), #Inicio vista Cliente
+    path('servicios/',views.servicios),
     path('login/',views.login),
-    path('agendar/',views.agendar), #Fin vista cliente
-    path('adminDashboard/', views.adminDashboard),#Inicio vista Empleados/Admin
+    path('agendar/',views.agendar),
+    #Fin vista cliente
+
+    #Inicio vista Empleados/Admin
+    path('adminDashboard/', views.adminDashboard),
     path('gestion-horas-agendadas/',views.dashboardHorasAgendadas),
-    path('creacion-usuarios/',views.registro_empleados_view),
-    path ('gestion-usuarios/', views.gestionarEmpleados),
-    path('gestion-servicios/',views.gestionServicios)
+    path('creacion-empleados/',views.registro_empleados_view),
+    path ('gestion-empleados/', views.gestionarEmpleados),
+    path('eliminar-empleado/<int:id>',views.eliminarEmpleado),
+    path('modificar-empleado/<int:id>',views.eliminarEmpleado),
+    path('gestion-servicios/',views.gestionServicios),
 ]

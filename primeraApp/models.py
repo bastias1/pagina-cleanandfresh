@@ -13,7 +13,6 @@ class Empleado(models.Model):
 
 class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
-    duracion = models.CharField(max_length=50)
     descripcion = models.TextField()
 
     def __str__(self):

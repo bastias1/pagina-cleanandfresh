@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from . import forms
 from .models import *
 # Create your views here.
@@ -46,6 +46,7 @@ def adminDashboard(request):
 def dashboardHorasAgendadas(request):
     return render(request,'admin/horasAgendadasDashboard.html')
 
+#GESTION EMPLEADO 
 def gestionarEmpleados(request):
     empleados = Empleado.objects.all()
     
@@ -53,6 +54,12 @@ def gestionarEmpleados(request):
         'empleados':empleados
     }
     return render(request, 'admin/gestionarUsuarios.html',data)
+
+def eliminarEmpleado(request,id):
+    empleado = Empleado.objects.get(id=id)
+    empleado.delete()
+    print("empleado eliminado")
+    return redirect('/gestion-empleados')
     
 def registro_empleados_view(request):
     form = forms.RegistroEmpleados()

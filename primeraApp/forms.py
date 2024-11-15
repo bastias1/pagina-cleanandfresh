@@ -19,10 +19,9 @@ class RegistroEmpleados(forms.ModelForm):
 class IngresoServicios(forms.ModelForm):
     class Meta:
         model = Servicio
-        fields = ['nombreServicio','duracion','descripcion']
+        fields = ['nombreServicio','descripcion']
         widgets = {
             'nombreServicio' : forms.TextInput(attrs={'class':'form-control'}),
-            'duracion' :  forms.TextInput(attrs={'class':'form-control'}),
             'descripcion': forms.TextInput(attrs={'class':'form-control'}),
         }
 
