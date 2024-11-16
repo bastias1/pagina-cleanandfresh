@@ -94,15 +94,26 @@ def agregarServicio(request):
         if form.is_valid():
             print("Datos insertados a la base de datos")
             form.save()
-            return redirect('gestionServicios')  # Redirige a la lista de servicios después de agregar
+            return redirect('gestionServicios')  
         else:
             print("Datos NO insertados")
     else:
-        form = forms.IngresoServicios()  # Inicializa el formulario en caso de una solicitud GET
+        form = forms.IngresoServicios()  
 
     return render(request, 'admin/agregarServicios.html', {'form': form})
 
 
-#def modificarServicio(request):    
+def modificarServicio(request, id):
+    servicio = Servicio.objects.get(id=id)  
 
-    
+    if request.method == 'POST':
+        form = forms.IngresoServicios(request.POST, request.FILES, instance=servicio)
+        if form.is_valid():
+            form.save()
+            print("Servicio modificado correctamente")
+            return redirect('gestionServicios')
+    else:
+        form = forms.IngresoServicios(instance=servicio)
+
+    # Reutiliza la plantilla de agregar servicios
+    return render(request, 'admin/agregarServicios.html', {'form': form, 'es_modificar': True, 'servicio': servicio})

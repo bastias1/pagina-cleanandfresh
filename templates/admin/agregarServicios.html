@@ -1,12 +1,28 @@
-{% extends 'admin/dashboard.html' %}{% load static %}{% block title %}Agregar Servicio{% endblock %}
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block title %}
+    {% if es_modificar %}
+        Modificar Servicio
+    {% else %}
+        Agregar Servicio
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2>Agregar Nuevo Servicio</h2>
+    <h2>
+        {% if es_modificar %}
+            Modificar Servicio - {{ servicio.nombreServicio }}
+        {% else %}
+            Agregar Nuevo Servicio
+        {% endif %}
+    </h2>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Guardar Servicio</button>
+        <button type="submit" class="btn {% if es_modificar %}btn-primary{% else %}btn-success{% endif %}">
+            {% if es_modificar %}Guardar Cambios{% else %}Guardar Servicio{% endif %}
+        </button>
         <a href="{% url 'gestionServicios' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>

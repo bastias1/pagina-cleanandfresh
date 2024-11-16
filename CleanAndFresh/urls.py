@@ -40,6 +40,7 @@ urlpatterns = [
     path('gestion-servicios/',views.gestionServicios,name='gestionServicios'),
     path('agregar-servicios/',views.agregarServicio),
     path('eliminar-servicio/<int:id>/', views.eliminarServicio, name='eliminarServicio'),
+    path('modificar-servicio/<int:id>/', views.modificarServicio, name='modificarServicio'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
