@@ -1,6 +1,9 @@
 from django import forms
 from django.core import validators
 from primeraApp.models import *
+import datetime
+from django import forms
+from .models import Cita
 
 class RegistroEmpleados(forms.ModelForm):
     class Meta:
@@ -51,11 +54,24 @@ class VehiculoForm(forms.ModelForm):
 class CitaForm(forms.ModelForm):
     class Meta:
         model = Cita
-        fields = [ 'cliente', 'vehiculo','fecha', 'servicio'] 
+        fields = ['fecha', 'servicio']  # Excluir 'cliente' y 'vehiculo'
         widgets = {
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'servicio': forms.SelectMultiple(),
+            'servicio': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
+    def clean_fecha(self):
+        fecha = self.cleaned_data['fecha']
+
+        # Validar que la fecha no sea un sábado o domingo
+        if fecha.weekday() in [5, 6]:  # 5 = sábado, 6 = domingo
+            raise forms.ValidationError("No se pueden agendar citas en fines de semana. Por favor selecciona un día hábil.")
+
+        # Validar que la fecha no sea anterior a la fecha actual
+        if fecha < datetime.date.today():
+            raise forms.ValidationError("No se pueden agendar citas en fechas pasadas. Por favor selecciona una fecha futura.")
+
+        return fecha
+
 
 class IngresoServicios(forms.ModelForm):
     class Meta:

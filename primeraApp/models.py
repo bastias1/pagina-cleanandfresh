@@ -9,7 +9,7 @@ class Empleado(models.Model):
     telefono = models.BigIntegerField()
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}"
 
 class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
@@ -26,7 +26,7 @@ class Vehiculo(models.Model):
     modelo = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.patente
+        return f"{self.marca} {self.modelo} ({self.patente})"
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
@@ -35,7 +35,7 @@ class Cliente(models.Model):
     correo = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}"
 
 class Cita(models.Model):
     fecha = models.DateField()
@@ -44,4 +44,5 @@ class Cita(models.Model):
     servicio = models.ManyToManyField(Servicio)
 
     def __str__(self):
-        return f"Cita on {self.fecha} - {self.cliente.nombre}"
+        cliente_nombre = self.cliente.nombre if self.cliente else "Sin Cliente"
+        return f"Cita para {cliente_nombre} el {self.fecha}"
