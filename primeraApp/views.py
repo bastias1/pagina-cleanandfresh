@@ -15,30 +15,20 @@ def servicios(request):
 
 
 def agendar(request):
+    form_cita = forms.CitaForm()
+
     if request.method=='POST':
-        cliente_form = forms.ClienteForm(request.POST)
-        vehiculo_form = forms.VehiculoForm(request.POST)
-        cita_form = forms.CitaForm(request.POST)
-        print(request.POST)
-
-        if cliente_form.is_valid() and vehiculo_form.is_valid():
-            print("Cliente valid")
-            print("Vehiculo Valid")
-            cliente = cliente_form.save()
-            vehiculo = vehiculo_form.save()
-
-            cita = cita_form.save(commit=False)
-            cita.cliente = cliente
-            cita.vehiculo = vehiculo
-            cita.save()
-            cita_form.save_m2m()
-            print("Cita Guardada Correctamente")
+        form_cita = forms.CitaForm(request.POST)
+        print("Form Insertado")
+        if form_cita.is_valid():
+            print("Datos insertados a la base de datos")
+            print(form_cita.cleaned_data)
+            form_cita.save()
     else:
-        cliente_form = forms.ClienteForm()
-        vehiculo_form = forms.VehiculoForm()
-        cita_form = forms.CitaForm()
-
-    return render(request,'user/agendar.html',{'cliente_form':cliente_form,'vehiculo_form':vehiculo_form,'cita_form':cita_form})
+        print("Datos NO insertados")
+        form_cita = forms.CitaForm()
+    
+    return render(request,'user/agendar.html',{'form_cita':form_cita})
 
 #Paginas que ven los Empleados/Admin
 def login(request):

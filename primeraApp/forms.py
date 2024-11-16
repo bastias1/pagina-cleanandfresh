@@ -51,10 +51,10 @@ class VehiculoForm(forms.ModelForm):
 class CitaForm(forms.ModelForm):
     class Meta:
         model = Cita
-        fields = ['fecha', 'cliente', 'vehiculo', 'servicio'] 
+        fields = [ 'cliente', 'vehiculo','fecha', 'servicio'] 
         widgets = {
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'servicio': forms.CheckboxInput(),
+            'servicio': forms.SelectMultiple(),
         }
 
 class IngresoServicios(forms.ModelForm):

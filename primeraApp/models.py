@@ -26,7 +26,7 @@ class Vehiculo(models.Model):
     modelo = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.marca} {self.modelo} ({self.patente})"
+        return self.patente
 
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
@@ -39,9 +39,8 @@ class Cliente(models.Model):
 
 class Cita(models.Model):
     fecha = models.DateField()
-    estado = models.CharField(max_length=50)
-    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)  # Usar ForeignKey para una relacion 1 a muchos
-    vehiculo = models.OneToOneField(Vehiculo, on_delete=models.CASCADE)  # Usar ForeignKey para una relacion 1 a muchos
+    cliente = models.ForeignKey(Cliente, null=True ,on_delete=models.SET_NULL)
+    vehiculo = models.ForeignKey(Vehiculo, null=True ,on_delete=models.SET_NULL) 
     servicio = models.ManyToManyField(Servicio)
 
     def __str__(self):
