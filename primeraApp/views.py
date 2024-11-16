@@ -78,6 +78,11 @@ def registro_empleados_view(request):
     
     return render(request,'admin/crearUsuarios.html',{'form':form})
 
+def eliminarServicio(request, id):
+    servicio = Servicio.objects.get(id=id)
+    servicio.delete()
+    print("Servicio eliminado")
+    return redirect('gestionServicios')
 
 def gestionServicios(request):
     servicios=Servicio.objects.all()

@@ -39,6 +39,8 @@ urlpatterns = [
     path('modificar-empleado/<int:id>',views.eliminarEmpleado),
     path('gestion-servicios/',views.gestionServicios,name='gestionServicios'),
     path('agregar-servicios/',views.agregarServicio),
+    path('eliminar-servicio/<int:id>/', views.eliminarServicio, name='eliminarServicio'),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #lo que esta despues del ']' hace la magia con las imagenes
