@@ -1,20 +1,31 @@
-{% extends 'user/index.html' %} {% load static %} {% block title %} Servicios {% endblock %} {% block content %}
+{% extends 'user/index.html' %}
+{% load static %}
+{% block title %} Servicios {% endblock %}
 
+{% block content %}
 <div class="container px-4 py-5" id="featured-3">
-	<h2 class="pb-2 border-bottom">Servicios</h2>
+    <h2 class="pb-2 border-bottom">Servicios</h2>
 
-	<div class="container mt-3">
-		<div class="row">
-			<!-- Mini Card 1 -->
-			<div class="col-md-4 mb-4">
-				<div class="card d-flex flex-column h-100">
-					<img src="{% static 'images/integral.jpg' %}" class="card-img-top img-fluid" alt="Limpieza integral" />
-					<div class="card-body">
-						<h5 class="card-title text-center">Limpieza integral</h5>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container mt-3">
+        <div class="row">
+            {% for servicio in servicios %}
+            <div class="col-md-4 mb-4">
+                <div class="card d-flex flex-column h-100">
+                    <!-- Mostrar la imagen del servicio -->
+                    {% if servicio.imagen %}
+                    <img src="{{ servicio.imagen.url }}" class="card-img-top img-fluid" alt="{{ servicio.nombreServicio }}" />
+                    {% else %}
+                    <img src="{% static 'images/default.jpg' %}" class="card-img-top img-fluid" alt="Imagen no disponible" />
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{ servicio.nombreServicio }}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock %}
+

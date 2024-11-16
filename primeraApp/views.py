@@ -10,7 +10,9 @@ def index(request):
     return render(request,'user/index.html')
 
 def servicios(request):
-    return render(request,'user/servicios.html')
+    servicios = Servicio.objects.all()  # Obtén todos los servicios desde la base de datos
+    return render(request, 'user/servicios.html', {'servicios': servicios})
+
 
 def agendar(request):
     if request.method=='POST':
