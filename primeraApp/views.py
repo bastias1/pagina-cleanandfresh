@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from . import forms
 from .models import *
 from django.contrib.auth.decorators import login_required
+from .forms import RegistroEmpleados
 # Create your views here.
 
 #Paginas que ve el Cliente
@@ -77,6 +78,22 @@ def registro_empleados_view(request):
         form = forms.RegistroEmpleados()
     
     return render(request,'admin/crearUsuarios.html',{'form':form})
+
+##
+def modificarEmpleado(request, id):
+    empleado = Empleado.objects.get(id=id)
+    form = RegistroEmpleados(instance=empleado)
+    
+    if request.method == "POST":
+        form = RegistroEmpleados(request.POST, instance=empleado)
+        if form.is_valid():
+            form.save()
+            print("Empleado modificado correctamente")
+            return redirect('crearUsuario')  # Redirige a la vista de creación de empleados (registro_empleados_view)
+    
+    data = {'form': form}
+    return render(request, 'admin/crearUsuarios.html', data)
+
 
 def eliminarServicio(request, id):
     servicio = Servicio.objects.get(id=id)
