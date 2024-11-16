@@ -114,6 +114,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Login URL
+LOGIN_URL = '/login/'  # Ruta para redirigir a la página de login
+LOGIN_REDIRECT_URL = '/adminDashboard/'  # Ruta después de un login exitoso
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
