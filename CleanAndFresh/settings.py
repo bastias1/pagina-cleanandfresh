@@ -79,9 +79,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cleanandfresh_db',
-        'USER': 'admin',
-         'PASSWORD': 'wrtb4FbKhthj',
-        'HOST':'cleanandfresh-db.c1qse4kaqbkd.us-east-1.rds.amazonaws.com',
+        'USER': 'cafadmin',
+        'PASSWORD': 'wrtb4FbKhthj',
+        'HOST':'cleanandfresh-db.c74y2ico63pc.sa-east-1.rds.amazonaws.com',
         'PORT':3306
     }
 }
