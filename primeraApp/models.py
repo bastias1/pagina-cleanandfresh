@@ -1,16 +1,6 @@
 from django.db import models
-
-class Empleado(models.Model):
-    rut = models.CharField(max_length=10)
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    correo = models.EmailField(max_length=50)
-    password = models.CharField(max_length=100)
-    telefono = models.BigIntegerField()
-
-    def __str__(self):
-        return f"{self.nombre} {self.apellido}"
-
+from django.contrib.auth.models import User
+ 
 class Servicio(models.Model):
     nombreServicio = models.CharField(max_length=100)
     imagen = models.ImageField(upload_to='servicios/', null=True, blank=True)
@@ -47,3 +37,16 @@ class Cita(models.Model):
     def __str__(self):
         cliente_nombre = self.cliente.nombre if self.cliente else "Sin Cliente"
         return f"Cita para {cliente_nombre} el {self.fecha}"
+    
+class Empleado(models.Model):
+    user= models.OneToOneField(User,on_delete=models.CASCADE)
+    rut = models.CharField(max_length=10)
+    telefono = models.BigIntegerField()
+
+    def __str__(self):
+        return self.user
+    
+    def delete(self, *args, **kwargs):
+        user = self.user
+        super().delete(*args, **kwargs)
+        user.delete()

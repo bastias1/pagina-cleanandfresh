@@ -4,33 +4,7 @@
 </div>
 <div class="card-body p-5">
 	<form action="" method="post">
-		{% csrf_token %}
-		<div class="row mb-3">
-			<div class="col-md-4">
-				<label for="{{ form.nombre.id_for_label }}" class="form-label">Nombre</label>
-				{{ form.nombre }}
-			</div>
-			<div class="col-md-4">
-				<label for="apellido" class="form-label">Apellido</label>
-				{{ form.apellido }}
-			</div>
-			<div class="col-md-4">
-				<label for="rut" class="form-label">RUT</label>
-				{{ form.rut }}
-			</div>
-		</div>
-		<div class="mb-3">
-			<label for="correo" class="form-label">Correo Electrónico</label>
-			{{ form.correo }}
-		</div>
-		<div class="mb-3">
-			<label for="telefono" class="form-label">Teléfono</label>
-			{{ form.telefono }}
-		</div>
-		<div class="mb-3">
-			<label for="password" class="form-label">Contrasena</label>
-			{{ form.password }}
-		</div>
+		{% csrf_token %} {{ form_empleado.as_p }} {{ form_user.as_p }}
 
 		<div class="mt-4">
 			<input class="btn btn-dark rounded-pill px-4 py-2" type="submit" value="Agregar Empleado" />

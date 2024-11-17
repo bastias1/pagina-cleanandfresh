@@ -5,18 +5,27 @@ import datetime
 from django import forms
 from .models import Cita
 
+
+class RegistroUser(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username','password','email','first_name','last_name')
+
+        widgets = {
+            'username' : forms.TextInput(attrs={'class':'form-control'}),
+            'password' : forms.PasswordInput(attrs={'class':'form-control'}),
+            'email' : forms.EmailInput(attrs={'class':'form-control'}),
+            'first_name': forms.TextInput(attrs={'class':'form-control'}),
+            'last_name' : forms.TextInput(attrs={'class':'form-control'}),
+        }
 class RegistroEmpleados(forms.ModelForm):
     class Meta:
         model = Empleado 
-        fields = ('nombre', 'apellido', 'rut', 'correo', 'telefono', 'password') 
+        fields = ('rut','telefono') 
 
         widgets = {
-            'nombre' : forms.TextInput(attrs={'class':'form-control'}),
-            'apellido' : forms.TextInput(attrs={'class':'form-control'}),
             'rut' : forms.TextInput(attrs={'class':'form-control'}),
-            'correo' : forms.EmailInput(attrs={'class':'form-control'}),
             'telefono' : forms.NumberInput(attrs={'class':'form-control'}),
-            'password' : forms.TextInput(attrs={'class':'form-control'}),
         }
 
 class IngresoServicios(forms.ModelForm):

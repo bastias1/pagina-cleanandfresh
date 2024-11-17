@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from . import forms
 from .models import *
 from .forms import RegistroEmpleados
+from django.contrib.auth import authenticate,login,logout
+from django.contrib import messages
 # Create your views here.
 
 #Paginas que ve el Cliente
@@ -48,8 +50,24 @@ def agendar(request):
 
 
 #Paginas que ven los Empleados/Admin
-def login(request):
-    return render(request, 'admin/login.html')
+def inicioSesion(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('adminDashboard')
+        else:
+            messages.success(request,("Hubo un error al iniciar sesion."))
+            return redirect('login')
+    else:
+        return render(request, 'admin/login.html')
+    
+def cerrarSesion(request):
+    logout(request)
+    messages.success(request,("Se a cerrado la sesion."))
+    return redirect('login')
 
 def adminDashboard(request):
     return render(request, 'admin/dashboard.html')
@@ -130,18 +148,31 @@ def eliminarEmpleado(request,id):
     return redirect('/gestion-empleados')
     
 def registro_empleados_view(request):
-    form = forms.RegistroEmpleados()
     if request.method=='POST':
-        form = forms.RegistroEmpleados(request.POST)
+        form_user = forms.RegistroUser(request.POST)
+        form_empleado = forms.RegistroEmpleados(request.POST)
         print("Form Insertado")
-        if form.is_valid():
+        if form_empleado.is_valid() and form_user.is_valid():
             print("Datos insertados a la base de datos")
-            form.save()
+            user = form_user.save(commit=False)
+            user.set_password(form_user.cleaned_data['password'])
+            user.save()
+            empleado = form_empleado.save(commit=False)
+            empleado.user = user
+            empleado.save()
+            return redirect('gestionEmpleado')  # Redirigir a la URL raíz
+        else:
+            print("Errores en los formularios")
     else:
         print("Datos NO insertados")
-        form = forms.RegistroEmpleados()
+        form_user = forms.RegistroUser()
+        form_empleado = forms.RegistroEmpleados()
     
-    return render(request,'admin/crearUsuarios.html',{'form':form})
+    data = {
+        'form_empleado':form_empleado,
+        'form_user':form_user,
+    }
+    return render(request,'admin/crearUsuarios.html',data)
 
 def modificarEmpleado(request, id):
     empleado = Empleado.objects.get(id=id)
