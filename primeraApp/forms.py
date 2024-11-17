@@ -57,7 +57,7 @@ class CitaForm(forms.ModelForm):
         fields = ['fecha', 'servicio']  # Excluir 'cliente' y 'vehiculo'
         widgets = {
             'fecha': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'servicio': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'servicio': forms.SelectMultiple(attrs={'class': 'form-select'}),
         }
     def clean_fecha(self):
         fecha = self.cleaned_data['fecha']
@@ -71,7 +71,6 @@ class CitaForm(forms.ModelForm):
             raise forms.ValidationError("No se pueden agendar citas en fechas pasadas. Por favor selecciona una fecha futura.")
 
         return fecha
-
 
 class IngresoServicios(forms.ModelForm):
     class Meta:

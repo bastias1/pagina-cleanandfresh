@@ -32,11 +32,19 @@ urlpatterns = [
 
     #Inicio vista Empleados/Admin
     path('adminDashboard/', views.adminDashboard),
-    path('gestion-horas-agendadas/',views.dashboardHorasAgendadas),
-    path('creacion-empleados/',views.registro_empleados_view, name='crearUsuario'),
+    #Gestion Citas
+    path('gestion-citas/',views.dashboardHorasAgendadas,name='gestion-citas'),
+    path('agendar-cita/',views.agendarCitaEmpleado),
+    path('modificar-cita/<int:id>/',views.modificarCita,name='modificarCita'),
+    path('eliminar-cita/<int:id>/',views.eliminarCita,name='eliminarCita'),
+
+    #Gestion Empleados
+    path('creacion-empleados/',views.registro_empleados_view),
     path ('gestion-empleados/', views.gestionarEmpleados),
     path('eliminar-empleado/<int:id>',views.eliminarEmpleado),
     path('modificar-empleado/<int:id>',views.modificarEmpleado, name='modificarEmpleado'),
+
+    #Gestion Servicios
     path('gestion-servicios/',views.gestionServicios,name='gestionServicios'),
     path('agregar-servicios/',views.agregarServicio),
     path('eliminar-servicio/<int:id>/', views.eliminarServicio, name='eliminarServicio'),

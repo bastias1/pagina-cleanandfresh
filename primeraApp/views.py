@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from . import forms
 from .models import *
-from django.contrib.auth.decorators import login_required
 from .forms import RegistroEmpleados
 # Create your views here.
 
@@ -52,13 +51,68 @@ def agendar(request):
 def login(request):
     return render(request, 'admin/login.html')
 
-@login_required
 def adminDashboard(request):
     return render(request, 'admin/dashboard.html')
 
-@login_required
+
+#Gestion Cita
 def dashboardHorasAgendadas(request):
-    return render(request, 'admin/horasAgendadasDashboard.html')
+    citas = Cita.objects.all()
+    servicios = Servicio.objects.all()
+
+    data = {
+        'citas':citas,
+        'servicios':servicios
+    }
+    return render(request, 'admin/horasAgendadasDashboard.html',data)
+
+def agendarCitaEmpleado(request):
+    if request.method == 'POST':
+        cliente_form = forms.ClienteForm(request.POST)
+        vehiculo_form = forms.VehiculoForm(request.POST)
+        cita_form = forms.CitaForm(request.POST)
+
+        if cliente_form.is_valid() and vehiculo_form.is_valid() and cita_form.is_valid():
+            cliente = cliente_form.save()
+            vehiculo = vehiculo_form.save(commit=False)
+            vehiculo.dueño = cliente
+            vehiculo.save()
+            cita = cita_form.save(commit=False)
+            cita.cliente = cliente
+            cita.vehiculo = vehiculo
+            cita.save()
+            cita_form.save_m2m()
+            print("Cita guardada correctamente")
+            return redirect('gestion-citas')  # Redirigir a la URL raíz
+        else:
+            print("Errores en los formularios")
+    else:
+        cliente_form = forms.ClienteForm()
+        vehiculo_form = forms.VehiculoForm()
+        cita_form = forms.CitaForm()
+
+    return render(request, 'admin/agendarEmpleados.html', {
+        'cliente_form': cliente_form,
+        'vehiculo_form': vehiculo_form,
+        'cita_form': cita_form,
+    })
+
+def modificarCita(request,id):
+    pass
+
+def eliminarCita(request, id):
+    try:
+        cita = Cita.objects.get(id=id)
+        cita.servicio.clear() 
+        cita.vehiculo.delete()
+        cita.cliente.delete()
+        cita.delete()
+        print("Cita eliminada")
+    except Exception as e:
+        print(f"Error deleting cita: {e}")
+    
+    return redirect('gestion-citas')
+
 
 #GESTION EMPLEADO 
 def gestionarEmpleados(request):
@@ -89,7 +143,6 @@ def registro_empleados_view(request):
     
     return render(request,'admin/crearUsuarios.html',{'form':form})
 
-##
 def modificarEmpleado(request, id):
     empleado = Empleado.objects.get(id=id)
     form = RegistroEmpleados(instance=empleado)

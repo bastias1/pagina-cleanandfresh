@@ -1,42 +1,42 @@
-{% extends 'admin/dashboard.html' %}
-{% load static %}
-{% block title %} Servicios {% endblock %}
-
-{% block content %}
+{% extends 'admin/dashboard.html' %} {% load static %} {% block title %} Servicios {% endblock %} {% block content %}
 <div class="container px-4 py-5" id="featured-3">
-    <div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
-        <h2 class="m-0">Servicios</h2>
-        <!-- Botón Agregar nuevo servicio -->
+	<div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
+		<h2 class="m-0">Servicios</h2>
+		<!-- Botón Agregar nuevo servicio -->
 		<a href="/agregar-servicios" class="btn btn-success">Agregar nuevo servicio</a>
-    </div>
+	</div>
 
-    <div class="container mt-3">
-        <div class="row">
-            {% for servicio in servicios %}
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card h-100">
-                    <!-- Mostrar la imagen del servicio -->
-                    {% if servicio.imagen %}
-                    <img src="{{ servicio.imagen.url }}" class="card-img-top img-fluid" alt="{{ servicio.nombreServicio }}" style="height: 200px; object-fit: cover" />
-                    {% else %}
-                    <img src="{% static 'images/default.jpg' %}" class="card-img-top img-fluid" alt="Imagen no disponible" style="height: 200px; object-fit: cover" />
-                    {% endif %}
-                    
-                    <div class="card-body">
-                        <!-- Mostrar el nombre y la descripción del servicio -->
-                        <h5 class="card-title">{{ servicio.nombreServicio }}</h5>
-                        <p class="card-text">{{ servicio.descripcion }}</p>
-                        
-                        <div class="d-flex justify-content-start mt-3">
-                            <a href="{% url 'modificarServicio' servicio.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
-                            <a href="{% url 'eliminarServicio' servicio.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">Eliminar</a>                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+	<div class="container mt-3">
+		<div class="row">
+			{% for servicio in servicios %}
+			<div class="col-lg-4 col-md-6 mb-4">
+				<div class="card h-100">
+					<!-- Mostrar la imagen del servicio -->
+					{% if servicio.imagen %}
+					<img src="{{ servicio.imagen.url }}" class="card-img-top img-fluid" alt="{{ servicio.nombreServicio }}" style="height: 200px; object-fit: cover" />
+					{% else %}
+					<img src="{% static 'images/default.jpg' %}" class="card-img-top img-fluid" alt="Imagen no disponible" style="height: 200px; object-fit: cover" />
+					{% endif %}
+
+					<div class="card-body">
+						<!-- Mostrar el nombre y la descripción del servicio -->
+						<h5 class="card-title">{{ servicio.nombreServicio }}</h5>
+						<p class="card-text">{{ servicio.descripcion }}</p>
+
+						<div class="d-flex justify-content-start mt-3">
+							<a href="{% url 'modificarServicio' servicio.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
+							<a
+								href="{% url 'eliminarServicio' servicio.id %}"
+								class="btn btn-danger btn-sm"
+								onclick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
+								Eliminar
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
 </div>
 {% endblock %}
-
-

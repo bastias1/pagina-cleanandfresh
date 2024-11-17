@@ -19,15 +19,6 @@ class Servicio(models.Model):
     def __str__(self):
         return self.nombreServicio
 
-class Vehiculo(models.Model):
-    patente = models.CharField(max_length=50)
-    año = models.IntegerField()
-    marca = models.CharField(max_length=50)
-    modelo = models.CharField(max_length=50)
-
-    def __str__(self):
-        return f"{self.marca} {self.modelo} ({self.patente})"
-
 class Cliente(models.Model):
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
@@ -36,11 +27,21 @@ class Cliente(models.Model):
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
+    
+class Vehiculo(models.Model):
+    patente = models.CharField(max_length=50)
+    año = models.IntegerField()
+    marca = models.CharField(max_length=50)
+    modelo = models.CharField(max_length=50)
+    dueño = models.ForeignKey(Cliente,null=True,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.marca} {self.modelo} ({self.patente})"
 
 class Cita(models.Model):
     fecha = models.DateField()
-    cliente = models.ForeignKey(Cliente, null=True ,on_delete=models.SET_NULL)
-    vehiculo = models.ForeignKey(Vehiculo, null=True ,on_delete=models.SET_NULL) 
+    vehiculo = models.ForeignKey(Vehiculo, null=True, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, null=True, on_delete=models.CASCADE)
     servicio = models.ManyToManyField(Servicio)
 
     def __str__(self):

@@ -1,48 +1,62 @@
 {% extends 'admin/dashboard.html' %} {% load static %} {% block title %} Horas Agendadas {% endblock %} {% block content %}
-<h1 class="mb-4">Horas Agendadas</h1>
-<table class="table align-content-center">
-	<thead>
-		<tr>
-			<th scope="col">Fecha</th>
-			<th scope="col">Servicio</th>
-			<th scope="col">Modelo del Auto</th>
-			<th scope="col">Hora</th>
-			<th scope="col">Acciones</th>
-		</tr>
-	</thead>
-	<tbody class="table-group-divider">
-		<!-- Fila 1 con un collapse para mostrar más detalles -->
-		<tr data-bs-toggle="collapse" data-bs-target="#detalles1" aria-expanded="false" aria-controls="detalles1">
-			<td>15 FEB</td>
-			<td>Revisión de Motor</td>
-			<td>Toyota Corolla</td>
-			<td>14:00</td>
-			<td>
-				<button class="btn btn-warning btn-sm me-2">Modificar</button>
-				<button class="btn btn-danger btn-sm">Eliminar</button>
-			</td>
-		</tr>
-		<!-- Fila desplegable con más detalles -->
-		<tr>
-			<td colspan="5">
-				<div id="detalles1" class="collapse">
-					<div class="p-3 border rounded">
-						<strong>Nombre:</strong>
-						John Doe
-						<br />
-						<strong>Apellido:</strong>
-						Smith
-						<br />
-						<strong>Teléfono:</strong>
-						+56 9 1234 5678
-						<br />
-						<strong>Correo:</strong>
-						john.doe@example.com
+<div class="container px-4 py-5" id="featured-3">
+	<div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
+		<h1 class="mb-4">Horas Agendadas</h1>
+		<a href="/agendar-cita" class="btn btn-success">Agendar Cita</a>
+	</div>
+	<table class="table align-content-center">
+		<thead>
+			<tr>
+				<th scope="col">Fecha</th>
+				<th scope="col">Servicio</th>
+				<th scope="col">Modelo del Auto</th>
+				<th scope="col">Acciones</th>
+			</tr>
+		</thead>
+		<tbody class="table-group-divider">
+			{% for cita in citas %}
+			<tr>
+				<td>{{ cita.fecha }}</td>
+				<td>{% for servicio in cita.servicio.all %} {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %} {% empty %} No Servicios {% endfor %}</td>
+				<td>{{ cita.vehiculo }}</td>
+				<td>
+					<a href="{% url 'modificarCita' cita.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
+					<a href="{% url 'eliminarCita' cita.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta Cita?');"> Eliminar
+					</a>
+				</td>
+			</tr>
+			<!-- Fila desplegable con más detalles -->
+			<tr>
+				<td colspan="5">
+					<div class="row p-3 border rounded">
+						<div class="col">
+							<h5>Cliente:</h2>
+							{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}
+							<br />
+							<strong>Teléfono:</strong>
+							{{ cita.cliente.telefono }}
+							<br />
+							<strong>Correo:</strong>
+							{{ cita.cliente.correo }}
+						</div>
+						<div class="col">
+							<h5>Vehiculo:</h2>
+							{{ cita.vehiculo.marca }} {{ cita.vehiculo.modelo }} {{ cita.vehiculo.año }}
+							<br />
+							<strong>Patente:</strong>
+							{{ cita.vehiculo.patente }}
+						</div>
+						<div class="col">
+							<h5>Servicios:</h2>
+
+							{% for servicio in cita.servicio.all %}{{ servicio.nombreServicio }} {% if not forloop.last %}, {% endif %} {% empty %} No Servicios {% endfor %}
+						</div>
 					</div>
-				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 <!--FIN EDITAR-->
 {% endblock %}
