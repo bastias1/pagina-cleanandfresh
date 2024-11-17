@@ -79,21 +79,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cleanandfresh_db',
-        'USER':'root',
-        'PASSWORD':'',
+        'USER': 'admin',
+         'PASSWORD': 'wrtb4FbKhthj',
+        'HOST':'cleanandfresh-db.c1qse4kaqbkd.us-east-1.rds.amazonaws.com',
+        'PORT':3306
     }
 }
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'cleanandfresh_db',
-#        'USER': 'admin',
-#         'PASSWORD': 'wrtb4FbKhthj',
-#        'HOST':'cleanandfresh-db.c1qse4kaqbkd.us-east-1.rds.amazonaws.com',
-#        'PORT':3306
-#    }
-#}
 
 
 # Password validation

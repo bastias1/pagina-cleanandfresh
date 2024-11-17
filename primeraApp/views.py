@@ -142,6 +142,9 @@ def gestionarEmpleados(request):
     return render(request, 'admin/gestionarUsuarios.html',data)
 
 def eliminarEmpleado(request,id):
+    if User.objects.count() == 1:
+        messages.success(request,("No se puede eliminar el último usuario"))
+        return redirect('/gestion-empleados')
     empleado = Empleado.objects.get(id=id)
     empleado.delete()
     print("empleado eliminado")
