@@ -19,7 +19,7 @@ class Cliente(models.Model):
         return f"{self.nombre} {self.apellido}"
     
 class Vehiculo(models.Model):
-    patente = models.CharField(max_length=50)
+    patente = models.CharField(max_length=50,unique=True)
     año = models.IntegerField()
     marca = models.CharField(max_length=50)
     modelo = models.CharField(max_length=50)
@@ -40,7 +40,7 @@ class Cita(models.Model):
     
 class Empleado(models.Model):
     user= models.OneToOneField(User,on_delete=models.CASCADE)
-    rut = models.CharField(max_length=10)
+    rut = models.CharField(max_length=10,unique=True)
     telefono = models.BigIntegerField()
 
     def __str__(self):
