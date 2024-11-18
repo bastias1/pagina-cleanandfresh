@@ -115,8 +115,28 @@ def agendarCitaEmpleado(request):
         'cita_form': cita_form,
     })
 
-def modificarCita(request,id):
-    pass
+def modificarCita(request, id):
+    # Obtener la cita por ID o devolver un error 404 si no existe
+    cita = Cita.objects.get(id=id)
+
+    if request.method == 'POST':
+        # Usar el formulario con los datos actualizados
+        cita_form = forms.CitaForm(request.POST, instance=cita)
+        if cita_form.is_valid():
+            cita_form.save()
+            print("Cita modificada correctamente")
+            return redirect('gestion-citas')  # Redirige al dashboard de citas
+    else:
+        # Cargar el formulario con los datos actuales de la cita
+        cita_form = forms.CitaForm(instance=cita)
+
+    return render(request, 'admin/horasAgendadasDashboard.html', {
+        'cita_form': cita_form,
+        'es_modificar': True,
+        'cita': cita,
+    })
+
+
 
 def eliminarCita(request, id):
     try:
