@@ -1,71 +1,98 @@
-{% extends 'admin/dashboard.html' %} {% load static %} {% block title %} Horas Agendadas {% endblock %} {% block content %}
-<div class="container px-4 py-5" id="featured-3">
-	<div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
-		<h1 class="mb-4">{% if es_modificar %} Modificar Cita {% else %} Agendar Cita {% endif %}</h1>
-		{% if not es_modificar %}
-		<a href="/agendar-cita" class="btn btn-success">Agendar Cita</a>
-		{% endif %}
-	</div>
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block title %} Horas Agendadas {% endblock %}
 
-	{% if es_modificar %}
-	<form method="post">
-		{% csrf_token %} {{ cita_form.cliente.nombre }} {{ cita_form.as_p }}
-		<button type="submit" class="btn btn-primary">Guardar Cambios</button>
-		<a href="{% url 'gestion-citas' %}" class="btn btn-secondary">Cancelar</a>
-	</form>
-	{% else %}
-	<table class="table align-content-center">
-		<thead>
-			<tr>
-				<th scope="col">Fecha</th>
-				<th scope="col">Servicio</th>
-				<th scope="col">Modelo del Auto</th>
-				<th scope="col">Acciones</th>
-			</tr>
-		</thead>
-		<tbody class="table-group-divider">
-			{% for cita in citas %}
-			<tr>
-				<td>{{ cita.fecha|date:"l, F, d-m-Y" }}</td>
-				<td>{% for servicio in cita.servicio.all %} {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %} {% empty %} No Servicios {% endfor %}</td>
-				<td>{{ cita.vehiculo }}</td>
-				<td>
-					<a href="{% url 'modificarCita' cita.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
-					<a href="{% url 'eliminarCita' cita.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta Cita?');">
-						Eliminar
-					</a>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="5">
-					<div class="row p-3 border rounded">
-						<div class="col">
-							<h5>Cliente:</h5>
-							{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}
-							<br />
-							<strong>Teléfono:</strong>
-							{{ cita.cliente.telefono }}
-							<br />
-							<strong>Correo:</strong>
-							{{ cita.cliente.correo }}
-						</div>
-						<div class="col">
-							<h5>Vehículo:</h5>
-							{{ cita.vehiculo.marca }} {{ cita.vehiculo.modelo }} {{ cita.vehiculo.año }}
-							<br />
-							<strong>Patente:</strong>
-							{{ cita.vehiculo.patente }}
-						</div>
-						<div class="col">
-							<h5>Servicios:</h5>
-							{% for servicio in cita.servicio.all %} {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %} {% empty %} No Servicios {% endfor %}
-						</div>
-					</div>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	{% endif %}
+{% block content %}
+<div class="container px-4 py-5" id="featured-3">
+    <div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
+        <h1 class="mb-4">{% if es_modificar %} Modificar Cita {% else %} Agendar Cita {% endif %}</h1>
+        {% if not es_modificar %}
+        <a href="/agendar-cita" class="btn btn-success">Agendar Cita</a>
+        {% endif %}
+    </div>
+
+    {% if es_modificar %}
+    <div class="container mt-5">
+        <h2>Modificar Cita</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="cliente" class="form-label">Cliente</label>
+                <input type="text" class="form-control" id="cliente" value="{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}" readonly>
+            </div>
+
+            <div class="mb-3">
+                <label for="vehiculo" class="form-label">Vehículo</label>
+                <input type="text" class="form-control" id="vehiculo" value="{{ cita.vehiculo.marca }} {{ cita.vehiculo.modelo }} ({{ cita.vehiculo.patente }})" readonly>
+            </div>
+
+            {{ cita_form.as_p }}
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="{% url 'gestion-citas' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+    {% else %}
+    <table class="table align-content-center">
+        <thead>
+            <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Servicio</th>
+                <th scope="col">Modelo del Auto</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.fecha|date:"d/m/Y" }}</td>
+                <td>
+                    {% for servicio in cita.servicio.all %}
+                        {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %}
+                    {% empty %}
+                        No Servicios
+                    {% endfor %}
+                </td>
+                <td>{{ cita.vehiculo }}</td>
+                <td>
+                    <a href="{% url 'modificarCita' cita.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
+                    <a href="{% url 'eliminarCita' cita.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta Cita?');">
+                        Eliminar
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <div class="row p-3 border rounded">
+                        <div class="col">
+                            <h5>Cliente:</h5>
+                            {{ cita.cliente.nombre }} {{ cita.cliente.apellido }}
+                            <br />
+                            <strong>Teléfono:</strong> {{ cita.cliente.telefono }}
+                            <br />
+                            <strong>Correo:</strong> {{ cita.cliente.correo }}
+                        </div>
+                        <div class="col">
+                            <h5>Vehículo:</h5>
+                            {{ cita.vehiculo.marca }} {{ cita.vehiculo.modelo }} {{ cita.vehiculo.año }}
+                            <br />
+                            <strong>Patente:</strong> {{ cita.vehiculo.patente }}
+                        </div>
+                        <div class="col">
+                            <h5>Servicios:</h5>
+                            {% for servicio in cita.servicio.all %}
+                                {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                No Servicios
+                            {% endfor %}
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
 </div>
 {% endblock %}
