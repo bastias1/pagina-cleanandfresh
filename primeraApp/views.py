@@ -182,7 +182,6 @@ def registro_empleados_view(request):
             user.save()
             empleado = form_empleado.save(commit=False)
             empleado.user = user
-            empleado.date_joined = timezone.now()
             empleado.save()
             return redirect('gestionEmpleado')  # Redirigir a la URL raíz
         else:
