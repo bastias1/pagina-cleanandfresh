@@ -25,6 +25,32 @@
 					<a href="/eliminar-empleado/{{ empleado.id }}" class="btn btn-danger btn-sm btn-eliminar">Eliminar</a>
 				</td>
 			</tr>
+			<tr>
+				<td colspan="5">
+					<div class="row p-3 border rounded">
+						<div class="col-4">
+							<h5>Empleado:</h5>
+							{{ empleado.user.first_name }} {{ empleado.user.last_name }}
+							<br />
+							<strong>RUT:</strong>
+							{{ empleado.rut }}
+							<br />
+							<strong>Correo:</strong>
+							{{ empleado.user.email }}
+						</div>
+						<div class="col-4">
+							<strong>Teléfono:</strong>
+							{{ empleado.telefono }}
+							<br />
+							<strong>Usuario:</strong>
+							{{ empleado.user.username }}
+							<br />
+							<strong>Fecha de Contratacion:</strong>
+							{{ empleado.user.date_joined }}
+						</div>
+					</div>
+				</td>
+			</tr>
 			{% endfor %}
 		</tbody>
 	</table>
