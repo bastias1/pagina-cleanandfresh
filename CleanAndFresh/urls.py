@@ -42,7 +42,7 @@ urlpatterns = [
 
     #Gestion Empleados
     path('creacion-empleados/',login_required(views.registro_empleados_view)),
-    path ('gestion-empleados/', login_required(views.gestionarEmpleados),name='gestionEmpleado'),
+    path ('gestion-empleados/', login_required(views.gestionarEmpleados),name='gestion-empleados'),
     path('eliminar-empleado/<int:id>',login_required(views.eliminarEmpleado)),
     path('modificar-empleado/<int:id>',login_required(views.modificarEmpleado), name='modificarEmpleado'),
 

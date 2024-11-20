@@ -198,18 +198,41 @@ def registro_empleados_view(request):
     return render(request,'admin/crearUsuarios.html',data)
 
 def modificarEmpleado(request, id):
+    # Obtener el empleado por ID
     empleado = Empleado.objects.get(id=id)
-    form = RegistroEmpleados(instance=empleado)
-    
+    user = empleado.user  # Obtener el usuario asociado
+
+    # Formularios prellenados con los datos actuales
+    form_empleado = forms.RegistroEmpleados(instance=empleado)
+    form_user = forms.RegistroUser(instance=user)
+
     if request.method == "POST":
-        form = RegistroEmpleados(request.POST, instance=empleado)
-        if form.is_valid():
-            form.save()
+        # Actualizar datos de empleado y usuario
+        form_empleado = forms.RegistroEmpleados(request.POST, instance=empleado)
+        form_user = forms.RegistroUser(request.POST, instance=user)
+
+        if form_empleado.is_valid() and form_user.is_valid():
+            # Guardar datos de usuario y empleado
+            user = form_user.save(commit=False)
+            if form_user.cleaned_data.get('password'):
+                user.set_password(form_user.cleaned_data['password'])
+            user.save()
+
+            empleado = form_empleado.save(commit=False)
+            empleado.user = user
+            empleado.save()
+
             print("Empleado modificado correctamente")
-            return redirect('crearUsuario')  # Redirige a la vista de creación de empleados (registro_empleados_view)
-    
-    data = {'form': form}
+            return redirect('gestion-empleados')  # Redirige al listado de empleados
+
+    data = {
+        'form_empleado': form_empleado,
+        'form_user': form_user,
+        'es_modificar': True,  # Variable de contexto para diferenciar
+        'empleado': empleado,
+    }
     return render(request, 'admin/crearUsuarios.html', data)
+
 
 
 def eliminarServicio(request, id):
