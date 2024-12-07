@@ -1,29 +1,49 @@
 {% extends 'admin/dashboard.html' %}
 {% load static %}
+{% load widget_tweaks %}
 {% block title %}
     {% if es_modificar %}
-        Modificar Servicio
+        Modificar Servicio: {{ servicio.nombreServicio }}
     {% else %}
-        Agregar Servicio
+        Agregar Nuevo Servicio
     {% endif %}
 {% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h2>
-        {% if es_modificar %}
-            Modificar Servicio - {{ servicio.nombreServicio }}
-        {% else %}
-            Agregar Nuevo Servicio
-        {% endif %}
-    </h2>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn {% if es_modificar %}btn-primary{% else %}btn-success{% endif %}">
-            {% if es_modificar %}Guardar Cambios{% else %}Guardar Servicio{% endif %}
-        </button>
-        <a href="{% url 'gestionServicios' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4">
+                {% if es_modificar %}
+                    Modificar Servicio: {{ servicio.nombreServicio }}
+                {% else %}
+                    Agregar Nuevo Servicio
+                {% endif %}
+            </h2>
+            <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field|add_class:"form-control" }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% if field.errors %}
+                            <div class="invalid-feedback">
+                                {{ field.errors|join:", " }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <div class="mt-4">
+                    <button type="submit" class="btn {% if es_modificar %}btn-primary{% else %}btn-success{% endif %}">
+                        {% if es_modificar %}Guardar Cambios{% else %}Guardar Servicio{% endif %}
+                    </button>
+                    <a href="{% url 'gestionServicios' %}" class="btn btn-secondary ms-2">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

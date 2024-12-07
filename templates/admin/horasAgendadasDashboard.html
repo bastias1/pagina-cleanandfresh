@@ -4,8 +4,8 @@
 
 {% block content %}
 <div class="container px-4 py-5" id="featured-3">
-    <div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
-        <h1 class="mb-4">{% if es_modificar %} Modificar Cita {% else %} Agendar Cita {% endif %}</h1>
+    <div class="d-flex justify-content-between align-items-center pb-3 border-bottom">
+        <h2 class="m-0">{% if es_modificar %} Modificar Cita {% else %} Agendar Cita {% endif %}</h2>
         {% if not es_modificar %}
         <a href="/agendar-cita" class="btn btn-success">Agendar Cita</a>
         {% endif %}
@@ -34,8 +34,8 @@
         </form>
     </div>
     {% else %}
-    <table class="table align-content-center">
-        <thead>
+    <table class="table table-striped table-hover mt-4">
+        <thead class="table-dark">
             <tr>
                 <th scope="col">Fecha</th>
                 <th scope="col">Servicio</th>
@@ -43,7 +43,7 @@
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
-        <tbody class="table-group-divider">
+        <tbody>
             {% for cita in citas %}
             <tr>
                 <td>{{ cita.fecha|date:"d/m/Y" }}</td>
@@ -56,40 +56,85 @@
                 </td>
                 <td>{{ cita.vehiculo }}</td>
                 <td>
-                    <a href="{% url 'modificarCita' cita.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
-                    <a href="{% url 'eliminarCita' cita.id %}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar esta Cita?');">
-                        Eliminar
-                    </a>
+                    <button 
+                        class="btn btn-info btn-sm" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#detailsModal{{ cita.id }}"
+                    >
+                        Ver Detalles
+                    </button>
                 </td>
             </tr>
-            <tr>
-                <td colspan="5">
-                    <div class="row p-3 border rounded">
-                        <div class="col">
-                            <h5>Cliente:</h5>
-                            {{ cita.cliente.nombre }} {{ cita.cliente.apellido }}
-                            <br />
-                            <strong>Teléfono:</strong> {{ cita.cliente.telefono }}
-                            <br />
-                            <strong>Correo:</strong> {{ cita.cliente.correo }}
+
+            <!-- Modal for Detailed Info -->
+            <div 
+                class="modal fade" 
+                id="detailsModal{{ cita.id }}" 
+                tabindex="-1" 
+                aria-labelledby="detailsModalLabel{{ cita.id }}" 
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailsModalLabel{{ cita.id }}">
+                                Detalles de la Cita
+                            </h5>
+                            <button 
+                                type="button" 
+                                class="btn-close" 
+                                data-bs-dismiss="modal" 
+                                aria-label="Close"
+                            ></button>
                         </div>
-                        <div class="col">
-                            <h5>Vehículo:</h5>
-                            {{ cita.vehiculo.marca }} {{ cita.vehiculo.modelo }} {{ cita.vehiculo.año }}
-                            <br />
-                            <strong>Patente:</strong> {{ cita.vehiculo.patente }}
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Cliente:</h5>
+                                    <p>{{ cita.cliente.nombre }} {{ cita.cliente.apellido }}</p>
+                                    <p><strong>Teléfono:</strong> {{ cita.cliente.telefono }}</p>
+                                    <p><strong>Correo:</strong> {{ cita.cliente.correo }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Vehículo:</h5>
+                                    <p>{{ cita.vehiculo.marca }} {{ cita.vehiculo.modelo }} {{ cita.vehiculo.año }}</p>
+                                    <p><strong>Patente:</strong> {{ cita.vehiculo.patente }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h5>Servicios:</h5>
+                                    {% for servicio in cita.servicio.all %}
+                                        {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %}
+                                    {% empty %}
+                                        No Servicios
+                                    {% endfor %}
+                                </div>
+                            </div>
                         </div>
-                        <div class="col">
-                            <h5>Servicios:</h5>
-                            {% for servicio in cita.servicio.all %}
-                                {{ servicio.nombreServicio }}{% if not forloop.last %}, {% endif %}
-                            {% empty %}
-                                No Servicios
-                            {% endfor %}
+                        <div class="modal-footer">
+                            <button 
+                                class="btn btn-warning" 
+                                onclick="window.location.href='{% url 'modificarCita' cita.id %}'"
+                            >
+                                Modificar
+                            </button>
+                            <button 
+                                class="btn btn-danger" 
+                                onclick="window.location.href='{% url 'eliminarCita' cita.id %}'"
+                            >
+                                Eliminar
+                            </button>
+                            <button 
+                                type="button" 
+                                class="btn btn-secondary" 
+                                data-bs-dismiss="modal"
+                            >
+                                Cerrar
+                            </button>
                         </div>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </div>
+            <!-- End Modal -->
             {% endfor %}
         </tbody>
     </table>

@@ -41,14 +41,14 @@ urlpatterns = [
     path('eliminar-cita/<int:id>/',login_required(views.eliminarCita),name='eliminarCita'),
 
     #Gestion Empleados
-    path('creacion-empleados/',login_required(views.registro_empleados_view)),
+    path('creacion-empleados/',login_required(views.registro_empleados_view),name='registroEmpleados'),
     path ('gestion-empleados/', login_required(views.gestionarEmpleados),name='gestion-empleados'),
-    path('eliminar-empleado/<int:id>',login_required(views.eliminarEmpleado)),
+    path('eliminar-empleado/<int:id>',login_required(views.eliminarEmpleado),name='eliminarEmpleado'),
     path('modificar-empleado/<int:id>',login_required(views.modificarEmpleado), name='modificarEmpleado'),
 
     #Gestion Servicios
     path('gestion-servicios/',login_required(views.gestionServicios),name='gestionServicios'),
-    path('agregar-servicios/',login_required(views.agregarServicio)),
+    path('agregar-servicios/',login_required(views.agregarServicio),name='agregarServicio'),
     path('eliminar-servicio/<int:id>/', login_required(views.eliminarServicio), name='eliminarServicio'),
     path('modificar-servicio/<int:id>/', login_required(views.modificarServicio), name='modificarServicio'),
 

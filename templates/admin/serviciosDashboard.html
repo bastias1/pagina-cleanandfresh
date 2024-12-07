@@ -1,42 +1,100 @@
-{% extends 'admin/dashboard.html' %} {% load static %} {% block title %} Servicios {% endblock %} {% block content %}
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block title %} Servicios {% endblock %}
+
+{% block content %}
 <div class="container px-4 py-5" id="featured-3">
-	<div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
-		<h2 class="m-0">Servicios</h2>
-		<!-- Botón Agregar nuevo servicio -->
-		<a href="/agregar-servicios" class="btn btn-success">Agregar nuevo servicio</a>
-	</div>
+    <div class="d-flex justify-content-between align-items-center pb-3 border-bottom">
+        <h2 class="m-0">Servicios</h2>
+        <a href="{% url 'agregarServicio' %}" class="btn btn-success">Agregar nuevo servicio</a>
+    </div>
 
-	<div class="container mt-3">
-		<div class="row">
-			{% for servicio in servicios %}
-			<div class="col-lg-4 col-md-6 mb-4">
-				<div class="card h-100">
-					<!-- Mostrar la imagen del servicio -->
-					{% if servicio.imagen %}
-					<img src="{{ servicio.imagen.url }}" class="card-img-top img-fluid" alt="{{ servicio.nombreServicio }}" style="height: 200px; object-fit: cover" />
-					{% else %}
-					<img src="{% static 'images/default.jpg' %}" class="card-img-top img-fluid" alt="Imagen no disponible" style="height: 200px; object-fit: cover" />
-					{% endif %}
+    <div class="row mt-4">
+        {% for servicio in servicios %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <article class="card h-100">
+                    {% if servicio.imagen %}
+                        <img src="{{ servicio.imagen.url }}" class="card-img-top img-fluid" alt="{{ servicio.nombreServicio }}" style="height: 200px; object-fit: cover" />
+                    {% else %}
+                        <img src="{% static 'images/default.jpg' %}" class="card-img-top img-fluid" alt="Imagen no disponible" style="height: 200px; object-fit: cover" />
+                    {% endif %}
 
-					<div class="card-body">
-						<!-- Mostrar el nombre y la descripción del servicio -->
-						<h5 class="card-title">{{ servicio.nombreServicio }}</h5>
-						<p class="card-text">{{ servicio.descripcion }}</p>
+                    <div class="card-body d-flex flex-column">
+                        <h2 class="card-title h5">{{ servicio.nombreServicio }}</h2>
+                        <p class="card-text flex-grow-1">{{ servicio.descripcion }}</p>
 
-						<div class="d-flex justify-content-start mt-3">
-							<a href="{% url 'modificarServicio' servicio.id %}" class="btn btn-primary btn-sm me-2">Modificar</a>
-							<a
-								href="{% url 'eliminarServicio' servicio.id %}"
-								class="btn btn-danger btn-sm"
-								onclick="return confirm('¿Estás seguro de que deseas eliminar este servicio?');">
-								Eliminar
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-			{% endfor %}
-		</div>
-	</div>
+                        <div class="mt-auto">
+                            <button 
+                                class="btn btn-info btn-sm" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#detailsModal{{ servicio.id }}"
+                            >
+                                Ver Detalles
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Modal for Detailed Info -->
+            <div 
+                class="modal fade" 
+                id="detailsModal{{ servicio.id }}" 
+                tabindex="-1" 
+                aria-labelledby="detailsModalLabel{{ servicio.id }}" 
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailsModalLabel{{ servicio.id }}">
+                                Detalles del Servicio
+                            </h5>
+                            <button 
+                                type="button" 
+                                class="btn-close" 
+                                data-bs-dismiss="modal" 
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Nombre:</strong> {{ servicio.nombreServicio }}</p>
+                                    <p><strong>Descripción:</strong> {{ servicio.descripcion }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button 
+                                class="btn btn-warning" 
+                                onclick="window.location.href='{% url 'modificarServicio' servicio.id %}'"
+                            >
+                                Modificar
+                            </button>
+                            <button 
+                                class="btn btn-danger" 
+                                onclick="window.location.href='{% url 'eliminarServicio' servicio.id %}'"
+                            >
+                                Eliminar
+                            </button>
+                            <button 
+                                type="button" 
+                                class="btn btn-secondary" 
+                                data-bs-dismiss="modal"
+                            >
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+        {% empty %}
+            <div class="col-12">
+                <p class="text-center">No hay servicios disponibles.</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

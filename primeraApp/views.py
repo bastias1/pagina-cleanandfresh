@@ -164,11 +164,11 @@ def gestionarEmpleados(request):
 def eliminarEmpleado(request,id):
     if User.objects.count() == 1:
         messages.success(request,("No se puede eliminar el último usuario"))
-        return redirect('/gestion-empleados')
+        return redirect('gestion-empleados')
     empleado = Empleado.objects.get(id=id)
     empleado.delete()
     print("empleado eliminado")
-    return redirect('/gestion-empleados')
+    return redirect('gestion-empleados')
     
 def registro_empleados_view(request):
     if request.method=='POST':
@@ -183,7 +183,7 @@ def registro_empleados_view(request):
             empleado = form_empleado.save(commit=False)
             empleado.user = user
             empleado.save()
-            return redirect('gestionEmpleado')  # Redirigir a la URL raíz
+            return redirect('gestion-empleados')  # Redirigir a la URL raíz
         else:
             print("Errores en los formularios")
     else:

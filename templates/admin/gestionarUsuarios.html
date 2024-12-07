@@ -1,61 +1,117 @@
-{% extends 'admin/dashboard.html' %} {% load static %} {% block title %} Eliminacion de Empleados {% endblock %} {% block content %}
-<div class="container px-4 py-5" id="featured-3">
-	<div class="d-flex justify-content-between align-items-center pb-2 border-bottom">
-		<h2 class="m-0">Lista de Empleados</h2>
-		<a href="/creacion-empleados" class="btn btn-success">Agregar nuevo empleado</a>
-	</div>
-	{% if messages %} {% for message in messages %}
-	<div class="alert alert-danger">{{message}}</div>
-	{% endfor %} {% endif %} {% if empleados %}
-	<table class="table table-hover">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Telefono</th>
-				<th>Acciones</th>
-			</tr>
-		</thead>
-		<tbody class="table-group-divider">
-			{% for empleado in empleados %}
-			<tr>
-				<td>{{ empleado.user.first_name }} {{ empleado.user.last_name }}</td>
-				<td>{{ empleado.telefono }}</td>
-				<td>
-					<a href="{% url 'modificarEmpleado' empleado.id%}" class="btn btn-warning btn-sm me-2 btn-modificar">Modificar</a>
-					<a href="/eliminar-empleado/{{ empleado.id }}" class="btn btn-danger btn-sm btn-eliminar">Eliminar</a>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="5">
-					<div class="row p-3 border rounded">
-						<div class="col-4">
-							<h5>Empleado:</h5>
-							{{ empleado.user.first_name }} {{ empleado.user.last_name }}
-							<br />
-							<strong>RUT:</strong>
-							{{ empleado.rut }}
-							<br />
-							<strong>Correo:</strong>
-							{{ empleado.user.email }}
-						</div>
-						<div class="col-4">
-							<strong>Teléfono:</strong>
-							{{ empleado.telefono }}
-							<br />
-							<strong>Usuario:</strong>
-							{{ empleado.user.username }}
-							<br />
-							<strong>Fecha de Contratacion:</strong>
-							{{ empleado.user.date_joined }}
-						</div>
-					</div>
-				</td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+{% extends 'admin/dashboard.html' %}
+{% load static %}
+{% block title %} Gestión de Empleados {% endblock %}
 
-	{% else %}
-	<h2>No Existen Empleados</h2>
-	{% endif %} {% endblock %}
+{% block content %}
+<div class="container px-4 py-5" id="featured-3">
+    <div class="d-flex justify-content-between align-items-center pb-3 border-bottom">
+        <h2 class="m-0">Lista de Empleados</h2>
+        <a href="{% url 'registroEmpleados' %}" class="btn btn-success">Agregar nuevo empleado</a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if empleados %}
+    <table class="table table-striped table-hover mt-4">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>RUT</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for empleado in empleados %}
+            <tr>
+                <td>{{ empleado.user.first_name }} {{ empleado.user.last_name }}</td>
+                <td>{{ empleado.telefono }}</td>
+                <td>{{ empleado.rut }}</td>
+                <td>
+                    <button 
+                        class="btn btn-info btn-sm" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#detailsModal{{ empleado.id }}"
+                    >
+                        Ver Detalles
+                    </button>
+                </td>
+            </tr>
+
+            <!-- Modal for Detailed Info -->
+            <div 
+                class="modal fade" 
+                id="detailsModal{{ empleado.id }}" 
+                tabindex="-1" 
+                aria-labelledby="detailsModalLabel{{ empleado.id }}" 
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailsModalLabel{{ empleado.id }}">
+                                Detalles del Empleado
+                            </h5>
+                            <button 
+                                type="button" 
+                                class="btn-close" 
+                                data-bs-dismiss="modal" 
+                                aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p><strong>Nombre completo:</strong> {{ empleado.user.first_name }} {{ empleado.user.last_name }}</p>
+                                    <p><strong>RUT:</strong> {{ empleado.rut }}</p>
+                                    <p><strong>Correo:</strong> {{ empleado.user.email }}</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong>Teléfono:</strong> {{ empleado.telefono }}</p>
+                                    <p><strong>Usuario:</strong> {{ empleado.user.username }}</p>
+                                    <p><strong>Fecha de Contratación:</strong> {{ empleado.user.date_joined|date:"d/m/Y" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button 
+                                class="btn btn-warning" 
+                                onclick="window.location.href='{% url 'modificarEmpleado' empleado.id %}'"
+                            >
+                                Modificar
+                            </button>
+                            <button 
+                                class="btn btn-danger" 
+                                onclick="window.location.href='{% url 'eliminarEmpleado' empleado.id %}'"
+                            >
+                                Eliminar
+                            </button>
+                            <button 
+                                type="button" 
+                                class="btn btn-secondary" 
+                                data-bs-dismiss="modal"
+                            >
+                                Cerrar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Modal -->
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning mt-4">
+        <strong>No existen empleados registrados.</strong>
+    </div>
+    {% endif %}
 </div>
+{% endblock %}
